@@ -11,24 +11,34 @@ ieee754_seq<float, N, Emin, Emax> s;
 ```
 
 defines a sequence `s` of radix-2 IEEE-754 floats
+
 $$
 x_i=m_i \times 2^{E_i}, \quad i=0, 1, \dots, M= 2^N\left(E_{max} - E_{min}\right)
 $$
+
 where $m_i$ is the $N$-bit "mantissa"
+
 $$
 m_i = 1 + (i \bmod 2^N) / 2^N
 $$
+
 and
+
 $$
 E_i = E_{min} + (i \div 2^N).
 $$
-The range of $x_i$ is $x_0=2^{E_{min}} \leq x_i \leq x_M = 2^{E_{max}}$.
+
+The range of $x_i$ is 
+
+$$
+x_0=2^{E_{min}} \leq x_i \leq x_M = 2^{E_{max}}.
+$$
 
 For example, the sequence `ieee754_seq<float,2,0,2>` is
 
-| $i$   | 0   | 1    | 2   | 3    | 4 | 5   | 6 | 7   | 8 |
-|-------|-----|------|-----|------|---|-----|---|-----|---|
-| $x_i$ | 1   | 1.25 | 1.5 | 1.75 | 2 | 2.5 | 3 | 3.5 | 4 |
+| $i$   | 0   | 1    | 2   | 3    | 4   | 5   | 6   | 7   | 8   |
+| ----- | --- | ---- | --- | ---- | --- | --- | --- | --- | --- |
+| $x_i$ | 1   | 1.25 | 1.5 | 1.75 | 2   | 2.5 | 3   | 3.5 | 4   |
 
 The floating-pont numbers are not stored in the `ieee754_seq` object. They are generated on the fly by fast bit-manipulation operations on the integer index $i$.
 
@@ -74,7 +84,20 @@ When using an `ieee754_seq::iterator` the dereference operator `*` returns the f
 ### Interpolation
 
 The `ieee754_seq` class defines 2 interpolator objects for log-lin and log-log interpolation.
+
 ```cpp
+typedef ieee754_seq<float, 3, 0, 2> seq_t;
+
+seq_t s;
+seq_t::log_log_interp interp;
+
+std::vector<float> y(s.size());
+
+for (int i = 0; i < y.size(); ++i) y[i] = some_func(s[i]);
+
+float x = 1.3333f;
+float y_i = interp(x); // interpolate y at x
+
 ```
 
 
