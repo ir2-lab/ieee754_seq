@@ -27,8 +27,13 @@ target_sources(ieee754_seq
   FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/ieee754_seq.h
 )
 
-add_executable(test EXCLUDE_FROM_ALL test/test.cpp )
-target_link_libraries(test ieee754_seq)
+# Build test only if we are the main project
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+
+  add_executable(test EXCLUDE_FROM_ALL test/test.cpp )
+  target_link_libraries(test ieee754_seq)
+
+endif()
 
 # install the headers that we specified with FILE_SET (header files for the user to include in their projects)
 install(TARGETS ieee754_seq
