@@ -439,6 +439,8 @@ public:
             return y_[i] + d_[i] * std::log2(x / (*i));
         }
 
+        const std::array<real_type, count> &data() const { return y_; }
+
     private:
         std::array<real_type, count> y_, d_;
     };
@@ -512,6 +514,8 @@ public:
             iterator i(x);
             return y_[i] * std::exp2(d_[i] * std::log2(x / (*i)));
         }
+
+        const std::array<real_type, count> &data() const { return y_; }
 
     private:
         std::array<real_type, count> y_, d_;
