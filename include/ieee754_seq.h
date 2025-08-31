@@ -324,6 +324,26 @@ public:
          */
         constexpr real_type log2v() const { return idx2log2(i_); }
 
+        /**
+         * @brief Returns an iterator pointing to the 1st point of the range
+         */
+        constexpr iterator begin() const { return iterator(int_type(0)); }
+
+        /**
+         * @brief Returns an iterator pointing to one past the last point of the range
+         */
+        constexpr iterator end() const { return iterator(count); }
+
+        /**
+         * @brief Returns an iterator pointing to the last point of the range
+         */
+        constexpr iterator rbegin() const { return iterator(dim); }
+
+        /**
+         * @brief Returns an iterator pointing to one before the first point
+         */
+        constexpr iterator rend() const { return iterator(int_type(-1)); }
+
     private:
         int_type i_;
     };

@@ -10,11 +10,10 @@ template <class T>
 void test()
 {
     typedef ieee754_seq<T, 2, 0, 1> seq_t;
-    seq_t R;
 
     cout << left;
     int w = 10;
-    for (auto i = R.begin(); i != R.end(); ++i) {
+    for (typename seq_t::iterator i; i != i.end(); ++i) {
         cout << i << ' ';
         cout << setw(w) << *i << ' ';
         cout << setw(w) << i.log2v() << endl;
