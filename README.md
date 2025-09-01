@@ -7,10 +7,10 @@ A C++ class template defining a sequence of IEEE-754 floating point values.
 The following code
 
 ```cpp
-ieee754_seq<float, N, Emin, Emax> s;
+typedef ieee754_seq<float, N, Emin, Emax> seq_t;
 ```
 
-defines a sequence `s` of radix-2 IEEE-754 floats
+defines a sequence `seq_t` of radix-2 IEEE-754 floats
 
 $$
 x_i=m_i \times 2^{E_i}, \quad i=0, 1, \dots, M= 2^N\left(E_{max} - E_{min}\right)
@@ -62,20 +62,22 @@ Just include the single header file in your c++ code
 ```cpp
 #include <"ieee754_seq.h">
 
-ieee754_seq<float, 3, -10, 10> s; // 160 points from ~1e-3 to ~1e3
+typedef ieee754_seq<float, 3, -10, 10> seq_t; // 160 points from ~1e-3 to ~1e3
 ```
+Note that `seq_t` need not be instantiated as it contains no data variable (all values and functions are static const).
 
 Iteration over the number sequence can be done in various ways:
 ```cpp
 // for-loop with int
-for (int i = 0; i < s.size(); ++i)
+for (int i = 0; i < seq_t::size(); ++i)
         cout << i << ' ' << s[i] << endl;
 
 // for-loop with iterator
-for (auto i = s.begin(); i < s.end(); ++i)
+for (auto i = seq_t::begin(); i < seq_t::end(); ++i)
     cout << i << ' ' << *i << ' ' << i.log2v() << endl;
 
 // range for
+seq_t s; // here we must instantiate the sequence type
 for (const float &x : s)
     cout << x << endl;
 ```
@@ -88,16 +90,14 @@ The `ieee754_seq` class defines 2 interpolator objects for log-lin and log-log i
 ```cpp
 typedef ieee754_seq<float, 3, 0, 2> seq_t;
 
-seq_t s;
 seq_t::log_log_interp interp;
 
-std::vector<float> y(s.size());
+std::vector<float> y(seq_t::size());
 
 for (int i = 0; i < y.size(); ++i) y[i] = some_func(s[i]);
 
 float x = 1.3333f;
 float y_i = interp(x); // interpolate y at x
-
 ```
 
 

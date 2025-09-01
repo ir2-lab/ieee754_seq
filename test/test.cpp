@@ -13,7 +13,7 @@ void test()
 
     cout << left;
     int w = 10;
-    for (typename seq_t::iterator i; i != i.end(); ++i) {
+    for (auto i = seq_t::begin(); i != i.end(); ++i) {
         cout << i << ' ';
         cout << setw(w) << *i << ' ';
         cout << setw(w) << i.log2v() << endl;

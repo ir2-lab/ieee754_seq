@@ -351,27 +351,27 @@ public:
     /**
      * @brief Returns an iterator pointing to the 1st point of the range
      */
-    constexpr int_type size() const { return count; }
+    constexpr static int_type size() { return count; }
 
     /**
      * @brief Returns an iterator pointing to the 1st point of the range
      */
-    constexpr iterator begin() const { return iterator(int_type(0)); }
+    constexpr static iterator begin() { return iterator(int_type(0)); }
 
     /**
      * @brief Returns an iterator pointing to one past the last point of the range
      */
-    constexpr iterator end() const { return iterator(count); }
+    constexpr static iterator end() { return iterator(count); }
 
     /**
      * @brief Returns an iterator pointing to the last point of the range
      */
-    constexpr iterator rbegin() const { return iterator(dim); }
+    constexpr static iterator rbegin() { return iterator(dim); }
 
     /**
      * @brief Returns an iterator pointing to one before the first point
      */
-    constexpr iterator rend() const { return iterator(int_type(-1)); }
+    constexpr static iterator rend() { return iterator(int_type(-1)); }
 
     /**
      * @brief Return the i-th real value in the sequence
